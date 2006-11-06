@@ -18,12 +18,12 @@ Source0:	http://www.cpan.org/modules/by-module/Alien/%{pdir}-%{pnam}-%{version}.
 # Source0-md5:	98de414f8d378170ede6cf96a0e2f73e
 Patch0:		%{name}-nobuild.patch
 URL:		http://search.cpan.org/dist/Alien-wxWidgets/
-BuildRequires:  perl-Module-Build >= 0.2611-1
-BuildRequires:  perl-Module-Pluggable >= 3.1-4
+BuildRequires:	perl-Module-Build >= 0.2611-1
+BuildRequires:	perl-Module-Pluggable >= 3.1-4
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
-BuildRequires:  wxGTK2-%{?with_unicode:unicode-}devel >= 2.6.3
-BuildRequires:  wxGTK2-%{?with_unicode:unicode-}gl-devel >= 2.6.3
+BuildRequires:	wxGTK2-%{?with_unicode:unicode-}devel >= 2.6.3
+BuildRequires:	wxGTK2-%{?with_unicode:unicode-}gl-devel >= 2.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -48,7 +48,7 @@ WX_CONFIG=wx-gtk2-%{?with_unicode:unicode}%{!?with_unicode:ansi}-config
 export WX_CONFIG
 %{__perl} Makefile.PL \
 	INSTALLDIRS=vendor
-    
+
 %{__make} \
 	OPTIMIZE="%{rpmcflags}"
 
