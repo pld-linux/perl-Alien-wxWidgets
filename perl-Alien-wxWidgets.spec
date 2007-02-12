@@ -7,7 +7,7 @@
 %define		pdir	Alien
 %define		pnam	wxWidgets
 Summary:	Alien::wxWidgets - building, finding and using wxWidgets binaries
-Summary(pl):	Alien::wxWidgets - budowanie, znajdowanie i wykorzystywanie binariów wxWidgets
+Summary(pl.UTF-8):   Alien::wxWidgets - budowanie, znajdowanie i wykorzystywanie binariÃ³w wxWidgets
 Name:		perl-Alien-wxWidgets
 Version:	0.22
 Release:	0.1
@@ -33,11 +33,11 @@ wxWidgets versions or configurations (debug, Unicode, etc.). It can
 also build and install a private copy of wxWidgets as part of the
 build process.
 
-%description -l pl
-Alien::wxWidgets pozwala wxPerlowi ³atwo uzyskaæ informacje na temat
-instalacji wxWidgets. Mo¿e przechowywaæ informacje o wielu wersjach
-lub konfiguracjach (debug, Unicode, itp.). Mo¿e tak¿e zbudowaæ i
-zainstalowaæ prywatn± kopiê wxWidgets jako czê¶æ procesu budowania.
+%description -l pl.UTF-8
+Alien::wxWidgets pozwala wxPerlowi Å‚atwo uzyskaÄ‡ informacje na temat
+instalacji wxWidgets. MoÅ¼e przechowywaÄ‡ informacje o wielu wersjach
+lub konfiguracjach (debug, Unicode, itp.). MoÅ¼e takÅ¼e zbudowaÄ‡ i
+zainstalowaÄ‡ prywatnÄ… kopiÄ™ wxWidgets jako czÄ™Å›Ä‡ procesu budowania.
 
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
