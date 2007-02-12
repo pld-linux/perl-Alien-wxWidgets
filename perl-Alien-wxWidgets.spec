@@ -7,7 +7,7 @@
 %define		pdir	Alien
 %define		pnam	wxWidgets
 Summary:	Alien::wxWidgets - building, finding and using wxWidgets binaries
-Summary(pl.UTF-8):   Alien::wxWidgets - budowanie, znajdowanie i wykorzystywanie binariów wxWidgets
+Summary(pl.UTF-8):	Alien::wxWidgets - budowanie, znajdowanie i wykorzystywanie binariów wxWidgets
 Name:		perl-Alien-wxWidgets
 Version:	0.22
 Release:	0.1
