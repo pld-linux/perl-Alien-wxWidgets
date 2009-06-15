@@ -1,24 +1,13 @@
-diff -uNr Alien-wxWidgets-0.22.orig/Build.PL Alien-wxWidgets-0.22/Build.PL
---- Alien-wxWidgets-0.22.orig/Build.PL	2006-10-03 20:38:40.000000000 +0200
-+++ Alien-wxWidgets-0.22/Build.PL	2006-10-18 00:00:18.414760047 +0200
-@@ -38,13 +38,13 @@
-     create_makefile_pl => 'passthrough',
-   );
- 
+--- Alien-wxWidgets-0.43/Build.PL.orig	2009-05-10 09:48:23.000000000 +0200
++++ Alien-wxWidgets-0.43/Build.PL	2009-06-15 11:21:53.917665314 +0200
+@@ -91,9 +91,7 @@
+         }
+     }
+ }
+-chomp $build_prompt;
 -my $build_wx = _askyn( $build, 'build_wx',
--                       'Do you want to build wxWidgets?', 'no' );
--$build->notes( 'build_wx' => $build_wx );
--if( $build_wx ) {
--    $TYPE = _ask( $build, 'source', 'Which archive type?', 'tar.gz' );
--    $build->notes( 'build_data' => do 'patches/data' );
--}
-+#my $build_wx = _askyn( $build, 'build_wx',
-+#                       'Do you want to build wxWidgets?', 'no' );
-+$build->notes( 'build_wx' => 0 );
-+#if( $build_wx ) {
-+#    $TYPE = _ask( $build, 'source', 'Which archive type?', 'tar.gz' );
-+#    $build->notes( 'build_data' => do 'patches/data' );
-+#}
- 
- $build->create_build_script;
- 
+-                       $build_prompt, $build_wx_dflt );
++my $build_wx;
+ $build->notes( 'build_wx' => $build_wx );
+ $build->notes( 'mk_portable' => $build->args('mk_portable') );
+ if( $build_wx ) {
