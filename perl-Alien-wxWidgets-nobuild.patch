@@ -1,13 +1,13 @@
---- Alien-wxWidgets-0.43/Build.PL.orig	2009-05-10 09:48:23.000000000 +0200
-+++ Alien-wxWidgets-0.43/Build.PL	2009-06-15 11:21:53.917665314 +0200
-@@ -91,9 +91,7 @@
+--- Alien-wxWidgets-0.44/Build.PL.orig	2009-10-16 12:25:41.000000000 +0200
++++ Alien-wxWidgets-0.44/Build.PL	2009-10-16 12:26:36.000000000 +0200
+@@ -96,9 +96,7 @@
          }
      }
  }
 -chomp $build_prompt;
--my $build_wx = _askyn( $build, 'build_wx',
+-my $build_wx = _askyn( $build, 'wxWidgets-build',
 -                       $build_prompt, $build_wx_dflt );
 +my $build_wx;
  $build->notes( 'build_wx' => $build_wx );
- $build->notes( 'mk_portable' => $build->args('mk_portable') );
+ $build->notes( 'mk_portable' => $build->args('wxWidgets-portable') );
  if( $build_wx ) {
