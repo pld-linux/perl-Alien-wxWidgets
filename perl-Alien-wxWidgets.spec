@@ -9,13 +9,13 @@
 Summary:	Alien::wxWidgets - building, finding and using wxWidgets binaries
 Summary(pl.UTF-8):	Alien::wxWidgets - budowanie, znajdowanie i wykorzystywanie binariów wxWidgets
 Name:		perl-Alien-wxWidgets
-Version:	0.45
-Release:	3
+Version:	0.64
+Release:	1
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Alien/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	09b699b0b4804ccfee1ab0e4673e7668
+# Source0-md5:	12b6492a87cf165a4f0cd7254ccfab11
 Patch0:		%{name}-nobuild.patch
 URL:		http://search.cpan.org/dist/Alien-wxWidgets/
 BuildRequires:	perl-Module-Build >= 0.2611-1
@@ -71,7 +71,8 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorarch}/Alien/*.pm
 %dir %{perl_vendorarch}/Alien/wxWidgets
 %{perl_vendorarch}/Alien/wxWidgets/*.pm
+%dir %{perl_vendorarch}/Alien/wxWidgets/Config
+%{perl_vendorarch}/Alien/wxWidgets/Config/*.pm
 %dir %{perl_vendorarch}/auto/Alien
 %dir %{perl_vendorarch}/auto/Alien/wxWidgets
-%{perl_vendorarch}/Alien/wxWidgets/*
 %{_mandir}/man3/*
