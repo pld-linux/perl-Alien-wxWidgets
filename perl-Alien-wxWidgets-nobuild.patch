@@ -8,6 +8,6 @@
 -my $build_wx = _askyn( $build, 'wxWidgets-build',
 -                       $build_prompt, $build_wx_dflt );
 +my $build_wx;
+ my $wx_version;
  $build->notes( 'build_wx' => $build_wx );
  $build->notes( 'mk_portable' => $build->args('wxWidgets-portable') );
- if( $build_wx ) {
