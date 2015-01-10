@@ -1,7 +1,11 @@
+# TODO: provide configurations for other configurations (e.g. x11)?
 #
 # Conditional build:
-%bcond_without	tests	# do not perform "make test"
-%bcond_with	unicode	# use Unicode version of wxGTK2
+%bcond_without	tests		# do not perform "make test"
+%bcond_without	gtk2		# wxGTK2 packages support
+%bcond_without	gtk3		# wxGTK3 packages support
+%bcond_without	ansi		# ANSI wx packages support
+%bcond_without	unicode		# Unicode wx packages support
 #
 %include	/usr/lib/rpm/macros.perl
 %define		pdir	Alien
@@ -18,14 +22,36 @@ Source0:	http://www.cpan.org/modules/by-module/Alien/%{pdir}-%{pnam}-%{version}.
 # Source0-md5:	219a4f572d24eaa98c3dc2d118c5d9f0
 Patch0:		%{name}-nobuild.patch
 URL:		http://search.cpan.org/dist/Alien-wxWidgets/
-BuildRequires:	perl-Module-Build >= 0.2611-1
-BuildRequires:	perl-Module-Pluggable >= 3.1-4
 BuildRequires:	perl-ExtUtils-CBuilder >= 0.24
+BuildRequires:	perl-Module-Build >= 0.28
+BuildRequires:	perl-Module-Pluggable >= 3.1-4
 BuildRequires:	perl-devel >= 1:5.8.0
+BuildRequires:	perl(File::Spec) >= 1.50
 BuildRequires:	rpm-perlprov >= 4.1-13
-BuildRequires:	wxGTK2-%{?with_unicode:unicode-}devel >= 2.6.3
-BuildRequires:	wxGTK2-%{?with_unicode:unicode-}gl-devel >= 2.6.3
+%if %{with gtk2}
+%if %{with ansi}
+BuildRequires:	wxGTK2-devel >= 2.6.3
+BuildRequires:	wxGTK2-gl-devel >= 2.6.3
+%endif
+%if %{with unicode}
+BuildRequires:	wxGTK2-unicode-devel >= 2.6.3
+BuildRequires:	wxGTK2-unicode-gl-devel >= 2.6.3
+%endif
+%endif
+%if %{with gtk3}
+%if %{with ansi}
+BuildRequires:	wxGTK3-devel >= 2.6.3
+BuildRequires:	wxGTK3-gl-devel >= 2.6.3
+%endif
+%if %{with unicode}
+BuildRequires:	wxGTK3-unicode-devel >= 2.6.3
+BuildRequires:	wxGTK3-unicode-gl-devel >= 2.6.3
+%endif
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		wx_ver		%(rpm -q wxWidgets-devel --qf '%%{VERSION}')
+%define		wx_ver_tag	%(echo %{wx_ver} | tr . _)
 
 %description
 Alien::wxWidgets allows wxPerl to easily find information about your
@@ -45,22 +71,24 @@ zainstalować prywatną kopię wxWidgets jako część procesu budowania.
 %patch0 -p1
 
 %build
-WX_CONFIG=wx-gtk2-%{?with_unicode:unicode}%{!?with_unicode:ansi}-config
-export WX_CONFIG
-%{__perl} Makefile.PL \
-	INSTALLDIRS=vendor
+for toolkit in %{?with_gtk2:gtk2} %{?with_gtk3:gtk3} ; do
+for charset in %{?with_ansi:ansi} %{?with_unicode:unicode} ; do
+export WX_CONFIG=wx-${toolkit}-${charset}-config
+%{__perl} Build.PL \
+	destdir=$RPM_BUILD_ROOT \
+	installdirs=vendor \
+	--wxWidgets-build=0
 
-%{__make} \
-	CC="%{__cc}" \
-	OPTIMIZE="%{rpmcflags}"
+./Build
 
-%{?with_tests:%{__make} test}
+%{?with_tests:./Build test}
+done
+done
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+./Build install
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,11 +96,25 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %dir %{perl_vendorarch}/Alien
-%{perl_vendorarch}/Alien/*.pm
+%{perl_vendorarch}/Alien/wxWidgets.pm
 %dir %{perl_vendorarch}/Alien/wxWidgets
-%{perl_vendorarch}/Alien/wxWidgets/*.pm
+%{perl_vendorarch}/Alien/wxWidgets/Utility.pm
 %dir %{perl_vendorarch}/Alien/wxWidgets/Config
-%{perl_vendorarch}/Alien/wxWidgets/Config/*.pm
-%dir %{perl_vendorarch}/auto/Alien
-%dir %{perl_vendorarch}/auto/Alien/wxWidgets
-%{_mandir}/man3/*
+%if %{with gtk2}
+%if %{with ansi}
+%{perl_vendorarch}/Alien/wxWidgets/Config/gtk2_%{wx_ver_tag}_gcc_3_4.pm
+%endif
+%if %{with unicode}
+%{perl_vendorarch}/Alien/wxWidgets/Config/gtk2_%{wx_ver_tag}_uni_gcc_3_4.pm
+%endif
+%endif
+%if %{with gtk3}
+# should be gtk3_*.pm?
+%if %{with ansi}
+%{perl_vendorarch}/Alien/wxWidgets/Config/gtk_%{wx_ver_tag}_gcc_3_4.pm
+%endif
+%if %{with unicode}
+%{perl_vendorarch}/Alien/wxWidgets/Config/gtk_%{wx_ver_tag}_uni_gcc_3_4.pm
+%endif
+%endif
+%{_mandir}/man3/Alien::wxWidgets*.3pm*
