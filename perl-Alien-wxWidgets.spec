@@ -7,7 +7,6 @@
 %bcond_without	ansi		# ANSI wx packages support
 %bcond_without	unicode		# Unicode wx packages support
 #
-%include	/usr/lib/rpm/macros.perl
 %define		pdir	Alien
 %define		pnam	wxWidgets
 Summary:	Alien::wxWidgets - building, finding and using wxWidgets binaries
