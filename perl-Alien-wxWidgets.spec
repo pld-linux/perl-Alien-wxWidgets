@@ -12,21 +12,23 @@
 Summary:	Alien::wxWidgets - building, finding and using wxWidgets binaries
 Summary(pl.UTF-8):	Alien::wxWidgets - budowanie, znajdowanie i wykorzystywanie binariów wxWidgets
 Name:		perl-Alien-wxWidgets
-Version:	0.67
-Release:	7
+Version:	0.69
+Release:	1
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Alien/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	510a7817fdaf59089b50a877a621d770
+# Source0-md5:	4edfec992976b71333699a84d07c8aa6
 Patch0:		%{name}-nobuild.patch
-URL:		http://search.cpan.org/dist/Alien-wxWidgets/
+Patch1:		%{name}-config.patch
+URL:		https://metacpan.org/release/Alien-wxWidgets
 BuildRequires:	perl-ExtUtils-CBuilder >= 0.24
 BuildRequires:	perl-Module-Build >= 0.28
 BuildRequires:	perl-Module-Pluggable >= 3.1-4
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	perl(File::Spec) >= 1.50
 BuildRequires:	rpm-perlprov >= 4.1-13
+BuildRequires:	rpmbuild(macros) >= 1.745
 %if %{with gtk2}
 %if %{with ansi}
 BuildRequires:	wxGTK2-devel >= 2.6.3
@@ -68,6 +70,7 @@ zainstalować prywatną kopię wxWidgets jako część procesu budowania.
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 for toolkit in %{?with_gtk2:gtk2} %{?with_gtk3:gtk3} ; do

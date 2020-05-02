@@ -1,0 +1,11 @@
+--- Alien-wxWidgets-0.69/Build.PL.orig	2020-05-02 18:18:30.077537675 +0200
++++ Alien-wxWidgets-0.69/Build.PL	2020-05-02 18:20:35.020194136 +0200
+@@ -155,7 +155,7 @@
+     require My::Build::Base;
+     
+     my $env_wxconfig = $ENV{WX_CONFIG};
+-    if ( $env_wxconfig && !-e $env_wxconfig && $env_wxconfig !~ /wx-config$/ ) {
++    if ( $env_wxconfig && !-e $env_wxconfig && $env_wxconfig !~ /wx.*-config$/ ) {
+         print STDERR qq(
+ =============================================================================
+ The specified environment WX_CONFIG does not appear to be a valid wx-config :
