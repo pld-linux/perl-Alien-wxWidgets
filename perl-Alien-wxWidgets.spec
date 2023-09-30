@@ -4,7 +4,7 @@
 %bcond_without	tests		# do not perform "make test"
 %bcond_without	gtk2		# wxGTK2 packages support
 %bcond_without	gtk3		# wxGTK3 packages support
-%bcond_without	ansi		# ANSI wx packages support
+%bcond_with	ansi		# ANSI wx packages support
 %bcond_without	unicode		# Unicode wx packages support
 #
 %define		_enable_debug_packages	0
@@ -15,7 +15,7 @@ Summary:	Alien::wxWidgets - building, finding and using wxWidgets binaries
 Summary(pl.UTF-8):	Alien::wxWidgets - budowanie, znajdowanie i wykorzystywanie binariów wxWidgets
 Name:		perl-Alien-wxWidgets
 Version:	0.69
-Release:	6
+Release:	7
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
@@ -29,6 +29,8 @@ BuildRequires:	perl-Module-Build >= 0.28
 BuildRequires:	perl-Module-Pluggable >= 3.1-4
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	perl(File::Spec) >= 1.50
+BuildRequires:	perl-Test-Pod >= 1.0
+BuildRequires:	perl-Test-Pod-Coverage >= 1.0
 BuildRequires:	rpm-perlprov >= 4.1-13
 BuildRequires:	rpmbuild(macros) >= 1.745
 %if %{with gtk2}
@@ -53,7 +55,26 @@ BuildRequires:	wxGTK3-unicode-gl-devel >= 2.6.3
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		wx_ver		%(rpm -q wxWidgets-devel --qf '%%{VERSION}')
+%if %{with gtk2}
+  %if %{with ansi}
+%define		wx_config	wx-gtk2-ansi-config
+  %else
+  %if %{with unicode}
+%define		wx_config	wx-gtk2-unicode-config
+  %endif
+  %endif
+%else
+  %if %{with gtk3}
+    %if %{with ansi}
+%define		wx_config	wx-gtk3-ansi-config
+    %else
+    %if %{with unicode}
+%define		wx_config	wx-gtk3-unicode-config
+    %endif
+    %endif
+  %endif
+%endif
+%define		wx_ver		%(%{wx_config} --version)
 %define		wx_ver_tag	%(echo %{wx_ver} | tr . _)
 
 %description
