@@ -92,8 +92,8 @@ zainstalować prywatną kopię wxWidgets jako część procesu budowania.
 
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 for toolkit in %{?with_gtk2:gtk2} %{?with_gtk3:gtk3} ; do
