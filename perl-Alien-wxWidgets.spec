@@ -2,7 +2,7 @@
 #
 # Conditional build:
 %bcond_without	tests		# do not perform "make test"
-%bcond_without	gtk2		# wxGTK2 packages support
+%bcond_with	gtk2		# wxGTK2 packages support
 %bcond_without	gtk3		# wxGTK3 packages support
 %bcond_with	ansi		# ANSI wx packages support
 %bcond_without	unicode		# Unicode wx packages support
