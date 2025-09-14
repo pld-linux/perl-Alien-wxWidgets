@@ -1,7 +1,7 @@
 # TODO: provide configurations for other configurations (e.g. x11)?
 #
 # Conditional build:
-%bcond_without	tests		# do not perform "make test"
+%bcond_without	tests		# unit tests
 %bcond_with	gtk2		# wxGTK2 packages support
 %bcond_without	gtk3		# wxGTK3 packages support
 %bcond_with	ansi		# ANSI wx packages support
@@ -19,11 +19,11 @@ Release:	9
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
-Source0:	http://www.cpan.org/modules/by-module/Alien/%{pdir}-%{pnam}-%{version}.tar.gz
+Source0:	https://www.cpan.org/modules/by-module/Alien/%{pdir}-%{pnam}-%{version}.tar.gz
 # Source0-md5:	4edfec992976b71333699a84d07c8aa6
 Patch0:		%{name}-nobuild.patch
 Patch1:		%{name}-config.patch
-URL:		https://metacpan.org/release/Alien-wxWidgets
+URL:		https://metacpan.org/dist/Alien-wxWidgets
 BuildRequires:	perl-ExtUtils-CBuilder >= 0.24
 BuildRequires:	perl-Module-Build >= 0.28
 BuildRequires:	perl-Module-Pluggable >= 3.1-4
